@@ -51,11 +51,11 @@ blacklist = []
 # Blacklist frequncies manually
 if blacklist_manual == True:
         blacklist.append(blacklist_custom)
-else:
+
     
 # Set the center freq
 
-sdr.center_freq == (start_freq + end_freq) / 2
+sdr.center_freq = (start_freq + end_freq) / 2
 
 # Run automatic blacklisting for n seconds (blacklist_time)
 if blacklist_auto == True:
@@ -81,8 +81,8 @@ if blacklist_auto == True:
 
         for i in blacklist:
             if i != peak_freq_mhz3:
-            blacklist.append(peak_freq_mhz3)
-            print("Added frequency to blacklist")
+                blacklist.append(peak_freq_mhz3)
+                print("Added frequency to blacklist")
 
     print(f"The following frequencie(s) are blacklisted: {blacklist} (including manual and automatic)")
     print("Blacklist created successfully!")
