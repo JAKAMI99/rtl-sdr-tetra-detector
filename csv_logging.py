@@ -16,7 +16,7 @@ sdr = RtlSdr()
 
 blacklist_time = 60 # Time in seconds for blacklist-scan
 sdr.sample_rate = 256e4  # Hz Most SDR-Sticks for well with 2,56 MHz (set as 2560000 or 256e4)
-sdr.freq_correction = 0  # PPM e.x. -10 / 10
+sdr.freq_correction = 1  # PPM e.x. -10 / 10
 sdr.gain = 30  # dB (on't use auto/0
 num_samples = 2**16
 squelch_level = -30
