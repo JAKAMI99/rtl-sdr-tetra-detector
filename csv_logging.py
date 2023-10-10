@@ -43,7 +43,7 @@ else:
 if end_freq - start_freq>= sdr.sample_rate:
     freqrange = end_freq - start_freq
     print(f"Warning: Selected Range is to big for selected sample_rate of {sdr.sample_rate}")
-    print(f"The configured start_freq and end_freq resulted in a range of {freqrange}.\n This exceeds the available bandwidth of {sdr.samplerate}. The complete specified range wont be covered")
+    print(f"The configured start_freq and end_freq resulted in a range of {freqrange}.\n This exceeds the available bandwidth of {sdr.sample_rate}. The complete specified range wont be covered")
 
 #Array of freqs for blacklisting
 blacklist = []
