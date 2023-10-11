@@ -44,8 +44,8 @@ else:
 #Check for exceeded scope
 if end_freq - start_freq>= sdr.sample_rate:
     freqrange = end_freq - start_freq
-    print(f"Warning: Selected Range is to big for selected sample_rate of {sdr.sample_rate}")
-    print(f"The configured start_freq and end_freq resulted in a range of {freqrange}.\n This exceeds the available bandwidth of {sdr.sample_rate}. The complete specified range wont be covered")
+    print(f"Warning: Selected Range is to big for selected sample_rate of {sdr.sample_rate}Hz")
+    print(f"The configured start_freq and end_freq resulted in a range of {freqrange}Hz.\n This exceeds the available bandwidth of {sdr.sample_rate}. The complete specified range wont be covered")
 
 #Array of freqs for blacklisting
 blacklist = []
@@ -58,6 +58,10 @@ if blacklist_manual == True:
 # Set the center freq
 
 sdr.center_freq = (start_freq + end_freq) / 2
+
+blacklist.append(sdr.center_freq) #Exclude the centerfrequencie since it tends to detect a lot of QRM/ there
+
+
 
 # Run automatic blacklisting for n seconds (blacklist_time)
 if blacklist_auto == True:
