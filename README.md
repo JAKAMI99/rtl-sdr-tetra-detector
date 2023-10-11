@@ -50,6 +50,7 @@ Connect an RTL-SDR device to your computer.
    `blacklist_auto`: Enabled by default. Autoscan upon starting for interference to exclude from detecting
    `blacklist_manual` Use an predefined Array of known Frequencies to ignore.
    `blacklist_custom` Array of frequencies for manual blacklist. e.g. [433.000, 433.500 ]
+   `blacklist_center` Highly recommend! Only disable if you know what you are doing.
 
         
 ### More about RTL-SDR

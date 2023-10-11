@@ -25,7 +25,7 @@ squelch_level = -30
 blacklist_auto = True 
 blacklist_manual = False # Manually blacklist frequencies?
 blacklist_custom = [] # Array of frequencies for manual blacklist. e.g. [433.000, 433.500, ]
-
+blacklist_center = True #Blacklist the center frequency to make sure it gets detected (lots of qrm on center)
 ################
 #Variable check#
 ################
@@ -97,7 +97,9 @@ if blacklist_auto == True:
     print("Blacklist created successfully!")
     print("CTRL + C to stop")
 
-
+    # Append Center frequencies to blacklist
+if blacklist_center == True:
+    blacklist.append(formatted_center)
 # Open the CSV file to write
 with open('signal_log.csv', mode='w') as csvfile:
     signal_writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
