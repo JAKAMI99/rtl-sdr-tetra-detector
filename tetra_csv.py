@@ -13,7 +13,7 @@ sdr = RtlSdr()
 # Set default values
 ####SET YOUR DESIRED FREQUENCIESRANGE HERE.
 ##############################################################################
-start_freq = 80e6 # Startfreq. in Hz(!) e.g. 106.7 MHz = 106700000 or 1067e5#
+start_freq = 380e6 # Startfreq. in Hz(!) e.g. 106.7 MHz = 106700000 or 1067e5#
 end_freq = 385e6 # Endfreq. in Hz(!)                                         #
 ##############################################################################
 blacklist_time = 60 # Time in seconds for blacklist-scan
@@ -51,7 +51,8 @@ blacklist = []
 
 #Calculate Centerfrequency
 sdr.center_freq = (start_freq + end_freq) / 2
-formatted_center  = '{:.3f}'.format(sdr.center_freq / 1000.0)
+formatted_center  = '{:.3f}'.format(sdr.center_freq / 1000000.0)
+print(f"Calculated the centerfrequency of {formatted_center} MHz")
 
 # Blacklist frequncies manually
 if blacklist_manual == True:
