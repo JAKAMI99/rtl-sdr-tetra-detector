@@ -13,7 +13,7 @@ sdr = RtlSdr()
 # Set default values
 ####SET YOUR DESIRED FREQUENCIESRANGE HERE.
 ##############################################################################
-start_freq = 380e6 # Startfreq. in Hz(!) e.g. 106.7 MHz = 106700000 or 1067e5#
+start_freq = 80e6 # Startfreq. in Hz(!) e.g. 106.7 MHz = 106700000 or 1067e5#
 end_freq = 385e6 # Endfreq. in Hz(!)                                         #
 ##############################################################################
 blacklist_time = 60 # Time in seconds for blacklist-scan
