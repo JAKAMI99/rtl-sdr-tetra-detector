@@ -56,10 +56,11 @@ if blacklist_manual == True:
 
     
 # Set the center freq
-
 sdr.center_freq = (start_freq + end_freq) / 2
 
-blacklist.append(sdr.center_freq) #Exclude the centerfrequencie since it tends to detect a lot of QRM/ there
+#Exclude the centerfrequencie since it tends to detect a lot of QRM/ there
+centerblock = '{:.3f}'.format(sdr.center_freq / 1000.0)
+blacklist.append(centerblock) 
 
 
 
