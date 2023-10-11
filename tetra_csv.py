@@ -24,7 +24,7 @@ num_samples = 2**16
 squelch_level = -30
 blacklist_auto = True 
 blacklist_manual = False # Manually blacklist frequencies?
-blacklist_custom = [] # Array of frequencies for manual blacklist. e.g. [433.000, 433.500 ]
+blacklist_custom = [] # Array of frequencies for manual blacklist. e.g. [433.000, 433.500, ]
 
 ################
 #Variable check#
@@ -47,20 +47,23 @@ if end_freq - start_freq>= sdr.sample_rate:
     print(f"Warning: Selected Range is to big for selected sample_rate of {sdr.sample_rate}Hz")
     print(f"The configured start_freq and end_freq resulted in a range of {freqrange}Hz.\n This exceeds the available bandwidth of {sdr.sample_rate}. The complete specified range wont be covered")
 
+
+# Set the center freq
+sdr.center_freq = (start_freq + end_freq) / 2
+
+#Calculate Centerfrequency in format 106.700 for blacklisting
+centerblock =  '{:.3f}'.format(sdr.center_freq / 1000.0)
+
 #Array of freqs for blacklisting
-blacklist = []
+blacklist = [centerblock]
 
 # Blacklist frequncies manually
 if blacklist_manual == True:
         blacklist.append(blacklist_custom)
 
     
-# Set the center freq
-sdr.center_freq = (start_freq + end_freq) / 2
 
 #Exclude the centerfrequencie since it tends to detect a lot of QRM/ there
-centerblock = '{:.3f}'.format(sdr.center_freq / 1000.0)
-blacklist.append(centerblock) 
 
 
 
@@ -92,8 +95,6 @@ if blacklist_auto == True:
                 blacklist.append(peak_freq_mhz3)
                 print("Added frequency to blacklist")
     # Append Center frequencies to blacklist
-    centerblock = '{:.3f}'.format(sdr.center_freq / 1000.0)
-    blacklist.append(centerblock)
     print(f"The following frequencie(s) are blacklisted: {blacklist} (including manual and automatic and the center frequency)")
     print("Blacklist created successfully!")
     print("CTRL + C to stop")
