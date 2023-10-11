@@ -46,16 +46,11 @@ if end_freq - start_freq>= sdr.sample_rate:
     freqrange = end_freq - start_freq
     print(f"Warning: Selected Range is to big for selected sample_rate of {sdr.sample_rate}Hz")
     print(f"The configured start_freq and end_freq resulted in a range of {freqrange}Hz.\n This exceeds the available bandwidth of {sdr.sample_rate}. The complete specified range wont be covered")
+#Blacklist Array
+blacklist = []
 
-
-# Set the center freq
+#Calculate Centerfrequency
 sdr.center_freq = (start_freq + end_freq) / 2
-
-#Calculate Centerfrequency in format 106.700 for blacklisting
-centerblock =  '{:.3f}'.format(sdr.center_freq / 1000.0)
-
-#Array of freqs for blacklisting
-blacklist = [centerblock]
 
 # Blacklist frequncies manually
 if blacklist_manual == True:
