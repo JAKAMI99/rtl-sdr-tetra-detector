@@ -87,6 +87,7 @@ if blacklist_auto == True:
         peak_freq_mhz3 = f"{peak_freq3 / 1e6:.3f}"
 
         for i in blacklist:
+            print(f"Adding[{i} to blacklist]")
             if i != peak_freq_mhz3:
                 blacklist.append(peak_freq_mhz3)
                 print("Added frequency to blacklist")
