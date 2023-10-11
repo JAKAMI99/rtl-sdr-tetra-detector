@@ -26,9 +26,6 @@ These dependencies can be installed by running:
 
 `pip install -r requirements.txt`
 
-or
-
-
 ### Usage
 Connect an RTL-SDR device to your computer.
     Open a terminal and navigate to the directory containing the python script.
