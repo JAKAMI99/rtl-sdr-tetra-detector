@@ -51,6 +51,7 @@ blacklist = []
 
 #Calculate Centerfrequency
 sdr.center_freq = (start_freq + end_freq) / 2
+formatted_center  = '{:.3f}'.format(sdr.center_freq / 1000.0)
 
 # Blacklist frequncies manually
 if blacklist_manual == True:
@@ -90,6 +91,7 @@ if blacklist_auto == True:
                 blacklist.append(peak_freq_mhz3)
                 print("Added frequency to blacklist")
     # Append Center frequencies to blacklist
+    blacklist.append(formatted_center)
     print(f"The following frequencie(s) are blacklisted: {blacklist} (including manual and automatic and the center frequency)")
     print("Blacklist created successfully!")
     print("CTRL + C to stop")
