@@ -5,24 +5,26 @@ from rtlsdr import RtlSdr
 ###################
 ### Frequencies ###
 ###################
-start_freq = 880e6 # Startfreq. in Hz(!) e.x. 106.7 MHz = 106700000 or 1067e5
-end_freq = 885e6 # Endfreq. in Hz(!)
 
 
 # Open the RTL-SDR
 sdr = RtlSdr()
 
 # Set default values
-
+####SET YOUR DESIRED FREQUENCIESRANGE HERE.
+##############################################################################
+start_freq = 380e6 # Startfreq. in Hz(!) e.g. 106.7 MHz = 106700000 or 1067e5#
+end_freq = 385e6 # Endfreq. in Hz(!)                                         #
+##############################################################################
 blacklist_time = 60 # Time in seconds for blacklist-scan
 sdr.sample_rate = 256e4  # Hz Most SDR-Sticks for well with 2,56 MHz (set as 2560000 or 256e4)
-sdr.freq_correction = 1  # PPM e.x. -10 / 10
+sdr.freq_correction = 1  # PPM e.g. -10 / 10
 sdr.gain = 30  # dB (on't use auto/0
 num_samples = 2**16
 squelch_level = -30
 blacklist_auto = True 
 blacklist_manual = False # Manually blacklist frequencies?
-blacklist_custom = [] # Array of frequencies for manual blacklist. e.x. [433.000, 433.500 ]
+blacklist_custom = [] # Array of frequencies for manual blacklist. e.g. [433.000, 433.500 ]
 
 ################
 #Variable check#

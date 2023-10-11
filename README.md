@@ -1,12 +1,17 @@
-# rtl-sdr-close-call-monitor
+# rtl-sdr-tetra-detector
 
-These scripts use an RTL-SDR device to detect peak signals on a user specified frequency range. The scripts can also make an automatic blacklist so that different sources of RF noise won't cause continuous false positives. There are three scripts provided as examples. The scripts can be used to monitor and log certain frequencies for a wide range of purposes such as: 
+This tool is based on the [rtl-sdr-peak-detector](https://github.com/nootedandrooted/rtl-sdr-close-call-monitor/)
+These scripts use an RTL-SDR device to detect peak signals on the preconfigured spectrum for tetra uplink.
+The scripts is also preconfigured to automatic blacklist RF to prevent continuous false positives. 
+If you need this script for other areas and usecases of detecting, I highly recommend to use the original software, because it walks your trough the configuration. This tool uses hardcoded frequencies. 
 
-- In criminal investigations, a close-call RF signal monitor can be used to detect and track communication signals used by criminals. This can help law enforcement agencies gather intelligence and evidence, and even prevent future crimes from being committed. By analyzing the frequency and strength of signals emitted by communication devices, a close-call RF signal monitor can provide valuable insights into the movements and activities of suspects, allowing investigators to piece together a timeline of events and make informed decisions about how to proceaed with a case.
 
-- In military operations, a close-call RF signal monitor can be used to identify and track enemy communication signals, providing valuable intelligence for strategic decision-making.
+### Disclaimer
+- This tool enables the detection of devices that use the Tetra Uplink frequencies and is a P.O.C.
+- Devices that transmit on these frequencies are most of the time radios and tracker of ERT, Firefighter and the Police in European Countries.
+- I do not assume any liability for the use of this tool. You decide what you do with it. If you use it for wrongdoing, atleast don't get caught. :D
 
-- In scientific research, a close-call RF signal monitor can be used to collect and analyze data related to wireless communication systems, providing valuable insights for thesis projects and other research studies.
+
 
 
 ### Dependencies
@@ -15,58 +20,37 @@ This code requires the following dependencies to run:
 
     numpy
     rtlsdr
-    playsound
     requests
 
 These dependencies can be installed by running:
 
-pip install -r requirements.txt
+`pip install -r requirements.txt`
 
 or
 
-pip install numpy rtlsdr playsound
 
 ### Usage
-
 Connect an RTL-SDR device to your computer.
     Open a terminal and navigate to the directory containing the python script.
-    Choose a script that you want to use.
+    Run `python3 tetra_csv.py`
 
-   Run the monitor with sound script using `python3 monitor_with_sound.py` or run the CSV logging script using `python3 csv_logging.py` (ThingsBoard and JSON loggin in the end of this section)
+### Configure (optional)
 
-   The script will prompt you to enter various options:
-    
-   `Sample rate`: choose between the default value of 2.56MHz or a custom value (in Hz).
-        
-   `Frequency correction`: choose between the default value of 18 PPM or a custom value (in PPM).
-        
-   `Gain`: choose between the default value of 30dB or a custom value (in dB).
-        
-   `Start frequency`: the frequency to start scanning from (in Hz).
-        
-   `End frequency`: the frequency to stop scanning at (in Hz).
-        
-   `Number of samples`: choose between the default value of 2^16 or a custom value (in the format of x**xx).
-        
-   `Squelch level`: the threshold for the squelch level, i.e., the level below which a signal is considered to be noise.
-        
-   `Blacklist frequencies manually`: whether or not to manually blacklist frequencies. If yes, enter the frequency to blacklist (in MHz).
-        
-   `Scan time for automated frequency blacklisting`: choose between the default value of 60 seconds or a custom value (in seconds).
-        
-   The script will then scan the specified frequency range until you interrupt it by pressing Ctrl+C). Any frequencies below the squelch level or that are    blacklisted will be skipped. Any other frequencies will play an audible alarm in the sound script and in CSV logging script a line will be written to      the CSV file.
+   The python scripts has multiple variable you can tweak. By default it will listen on the Tetra Uplink frequencies with everything preconfigured you need.
+   Even tho everything is preconfigured, I highly recommend to tweak the settings, especially things like Squelch and Gain, depending on your setup and antenna.
+   Please consider, that most SDR-Devices only support 2.56 MHz of bandwith. (2560000 Hz)
 
-For ThingsBoard and JSON logging:
+   `start_freq`: the frequency to start scanning from (in Hz). e.g. 380000000 or 380e6 (e6 for six zeros)
+   `end_freq`: the frequency to stop scanning at (in Hz). e.g. 385000000 or 385e6 (e6 for six zeros)   
+   `blacklist_time`: Time to scan for QRM(static signals) to ignore when detecting
+   `sdr.sample_rate`: Most SDR work well with the preconfigured value. Choose between the default value of 2.56MHz or a custom value (in Hz).        
+   `sdr.freq_correction`: Finetune your receiver-frequencie. Set value in PPM. (Most of the time not necessary)       
+   `sdr.gain`: Preconfigured. Actual gain used is rounded to the nearest supported value (in dB).
+   `squelch_level`: he threshold for the squelch level, e.g., the level below which a signal is considered to be noise.   
+   `blacklist_auto`: Enabled by default. Autoscan upon starting for interference to exclude from detecting
+   `blacklist_manual` Use an predefined Array of known Frequencies to ignore.
+   `blacklist_custom` Array of frequencies for manual blacklist. e.g. [433.000, 433.500 ]
 
-   Run `python3 thingsboard_and_json_logging.py`
-   
-   The usage is the same as the other scripts but the script will also ask for `access token of the ThingsBoard server`, `ip address of the ThingsBoard server` and `port of the ThingsBoard server`.
-
-   The script will then scan the specified frequency range until you interrupt it by pressing Ctrl+C). Any frequencies below the squelch level or that are    blacklisted will be skipped. Any other frequencies will be sent to the ThingsBoard server and a line will be written to the JSON file.
-
-How to install ThingsBoard:
-
-   https://thingsboard.io/docs/user-guide/install/installation-options/
         
 ### More about RTL-SDR
 
@@ -93,11 +77,6 @@ Install the GStreamer library and its Python bindings:
 Make sure that the GST_PLUGIN_PATH and LD_LIBRARY_PATH environment variables are set:
 `export GST_PLUGIN_PATH=/usr/lib/gstreamer-1.0:/usr/lib/arm-linux-gnueabihf/gstreamer-1.0`
 `export LD_LIBRARY_PATH=/usr/lib/gstreamer-1.0:/usr/lib/arm-linux-gnueabihf/gstreamer-1.0`
-
-
-### Sound file
-
-The sound file: "warning.wav" is from a royalty-free source: https://bigsoundbank.com/detail-2381-aerospace-beep-2.html.
 
 ### Contributing
 
