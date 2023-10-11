@@ -91,8 +91,10 @@ if blacklist_auto == True:
             if i != peak_freq_mhz3:
                 blacklist.append(peak_freq_mhz3)
                 print("Added frequency to blacklist")
-
-    print(f"The following frequencie(s) are blacklisted: {blacklist} (including manual and automatic)")
+    # Append Center frequencies to blacklist
+    centerblock = '{:.3f}'.format(sdr.center_freq / 1000.0)
+    blacklist.append(centerblock)
+    print(f"The following frequencie(s) are blacklisted: {blacklist} (including manual and automatic and the center frequency)")
     print("Blacklist created successfully!")
     print("CTRL + C to stop")
 
